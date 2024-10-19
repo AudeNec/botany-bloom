@@ -1,41 +1,60 @@
 const monstera = document.querySelector("#monstera img");
-const numberPlantsContainer = document.querySelector("h1");
+const numberPlantsContainer = document.querySelector("h2");
 const plantPerSecondContainer = document.querySelector("header p");
 const items = document.querySelectorAll("aside#tools article");
-const itemNumber = document.querySelectorAll("section#aside article p.number-item")
-
+const itemNumber = document.querySelectorAll(
+	"section#aside article p.number-item",
+);
 
 let numberPlants = 0;
 let plantPerSecond = 0;
-let booster = 1;
-let grains = 10;
-let naturalFertilizer = 100;
-let bees = 500;
-let chimicalFertilizer = 1000;
-let gardeners = 10000;
-let seedling = 100000;
-let greenhouse = 500000;
+const booster = 1;
+const itemsParameters = [
+	{ addedPlant: 1, price: 10 },
+	{ addedPlant: 10, price: 100 },
+	{ addedPlant: 50, price: 500 },
+	{ addedPlant: 100, price: 1000 },
+	{ addedPlant: 500, price: 10000 },
+	{ addedPlant: 1000, price: 100000 },
+	{ addedPlant: 5000, price: 500000 },
+];
 
 function uploadNumberPlants() {
-    if (numberPlants < 2) {
-        numberPlantsContainer.innerText = `${numberPlants} plante`
-    } else numberPlantsContainer.innerText = `${numberPlants} plantes`;
+	if (numberPlants < 2) {
+		numberPlantsContainer.innerText = `${numberPlants} plante`;
+	} else numberPlantsContainer.innerText = `${numberPlants} plantes`;
 }
 
 function uploadPlantPerSecond() {
-    if (plantPerSecond <2) {
-        plantPerSecondContainer.innerText = `${plantPerSecond} nouvelle plante par seconde`
-    } else plantPerSecondContainer.innerText = `${plantPerSecond} nouvelles plantes par seconde`;
+	if (plantPerSecond < 2) {
+		plantPerSecondContainer.innerText = `${plantPerSecond} nouvelle plante par seconde`;
+	} else
+		plantPerSecondContainer.innerText = `${plantPerSecond} nouvelles plantes par seconde`;
 }
 
-monstera.addEventListener("click", () => {
-    numberPlants += booster;
-    uploadNumberPlants()
-})
+function autoclick() {
+	numberPlants += plantPerSecond;
+	uploadNumberPlants();
+}
+setInterval(autoclick, 1000);
 
-items.forEach(item => {
-    item.addEventListener("click", () => {
-        const numberItem = item.querySelector(".number-item");
-        numberItem.innerText = parseInt(numberItem.innerText) + 1
-    })
+monstera.addEventListener("click", () => {
+	numberPlants += booster;
+	uploadNumberPlants();
 });
+
+for (const i in items) {
+	const item = items[i];
+	if (item instanceof HTMLElement) {
+		item.addEventListener("click", () => {
+			if (numberPlants >= itemsParameters[i].price) {
+				const numberItem = item.querySelector(".number-item");
+				numberItem.innerText = Number.parseInt(numberItem.innerText) + 1;
+				plantPerSecond += itemsParameters[i].addedPlant;
+				uploadPlantPerSecond();
+				numberPlants -= itemsParameters[i].price;
+				uploadNumberPlants();
+			}
+		});
+	}
+}
