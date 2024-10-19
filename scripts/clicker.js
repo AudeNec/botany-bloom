@@ -5,6 +5,7 @@ const items = document.querySelectorAll("aside#tools article");
 const itemNumber = document.querySelectorAll(
 	"section#aside article p.number-item",
 );
+const bottomImages = document.querySelectorAll("section#bottom img");
 
 let numberPlants = 0;
 let plantPerSecond = 0;
@@ -52,9 +53,20 @@ for (const i in items) {
 				numberItem.innerText = Number.parseInt(numberItem.innerText) + 1;
 				plantPerSecond += itemsParameters[i].addedPlant;
 				uploadPlantPerSecond();
+				updateBottom();
 				numberPlants -= itemsParameters[i].price;
 				uploadNumberPlants();
 			}
 		});
 	}
+}
+
+function updateBottom() {
+	const thresholds = [10, 50, 100, 500, 1000, 2500, 5000, 10000, 25000, 500000];
+
+	thresholds.forEach((threshold, index) => {
+		if (plantPerSecond > threshold) {
+			bottomImages[index].style.display = "inline-block";
+		}
+	});
 }

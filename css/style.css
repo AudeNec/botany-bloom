@@ -28,7 +28,7 @@ nav {
 	justify-content: space-between;
 	align-items: center;
 	background-color: var(--second-color);
-	padding: 0em 2em;
+	padding: 0.2em 2em;
 }
 
 nav a {
@@ -40,6 +40,7 @@ nav a {
 nav a h1 {
 	color: var(--background-color);
 	padding-left: 1em;
+	font-size: 1.2em;
 }
 
 nav ul li a {
@@ -83,6 +84,13 @@ main section#monstera {
 main section#monstera img {
 	width: 100%;
 	border-radius: 150px;
+	cursor: pointer;
+	transition: all .1s ease-out;
+}
+
+main section#monstera img:active {
+	width: 98%;
+	transition: all .1s ease-in;
 }
 
 main section#bottom {
@@ -129,12 +137,13 @@ aside header.aside-header h3 {
 
 aside#tools article {
 	display: grid;
-	grid-template: 2fr 1fr 1fr / 4fr 1fr;
+	grid-template: 2fr 1fr 1fr / 2fr 1fr;
 	background-color: var(--second-color);
 	margin: 0 5% 5% 0;
 	border-radius: 0px 100px 100px 0px;
 	padding: 0.5em 1em;
 	text-align: right;
+	cursor: pointer;
 }
 
 aside#tools article h4 {
