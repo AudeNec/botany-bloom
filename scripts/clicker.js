@@ -1,16 +1,16 @@
 const monstera = document.querySelector("#monstera img");
 const numberPlantsContainer = document.querySelector("h2");
 const plantPerSecondContainer = document.querySelector("header p");
-const items = document.querySelectorAll("aside#tools article");
-const itemNumber = document.querySelectorAll(
-	"section#aside article p.number-item",
+const tools = document.querySelectorAll("aside#tools article");
+const toolNumber = document.querySelectorAll(
+	"section#aside article p.number-tool",
 );
 const bottomImages = document.querySelectorAll("section#bottom img");
 
 let numberPlants = 0;
 let plantPerSecond = 0;
 const booster = 1;
-const itemsParameters = [
+const toolsParameters = [
 	{ addedPlant: 1, price: 10 },
 	{ addedPlant: 10, price: 100 },
 	{ addedPlant: 50, price: 500 },
@@ -44,17 +44,17 @@ monstera.addEventListener("click", () => {
 	uploadNumberPlants();
 });
 
-for (const i in items) {
-	const item = items[i];
-	if (item instanceof HTMLElement) {
-		item.addEventListener("click", () => {
-			if (numberPlants >= itemsParameters[i].price) {
-				const numberItem = item.querySelector(".number-item");
-				numberItem.innerText = Number.parseInt(numberItem.innerText) + 1;
-				plantPerSecond += itemsParameters[i].addedPlant;
+for (const i in tools) {
+	const tool = tools[i];
+	if (tool instanceof HTMLElement) {
+		tool.addEventListener("click", () => {
+			if (numberPlants >= toolsParameters[i].price) {
+				const numbertool = tool.querySelector(".number-tool");
+				numbertool.innerText = Number.parseInt(numbertool.innerText) + 1;
+				plantPerSecond += toolsParameters[i].addedPlant;
 				uploadPlantPerSecond();
 				updateBottom();
-				numberPlants -= itemsParameters[i].price;
+				numberPlants -= toolsParameters[i].price;
 				uploadNumberPlants();
 			}
 		});
