@@ -171,3 +171,14 @@ aside#booster {
 	right: 0;
 	display: none;
 }
+
+#main-about {
+	line-height: 1.5;
+	max-width: 80%;
+	margin: 2rem auto;
+}
+
+#main-about h1 {
+	font-size: 2rem;
+	padding-bottom: 2rem;
+}
